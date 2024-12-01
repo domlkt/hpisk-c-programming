@@ -1,0 +1,2 @@
+#include <stdio.h> 
+float doStuff(int* a,int placeholder){int var = 0;for(int i = 0; i < placeholder; i++){var=var+a[i];}return var*1.0/placeholder*1.0;}int main(){int alright[] = {54,12,245,65,4,2,42,3,4711,5};int ok = sizeof(alright)/sizeof(alright[0]);printf("%f",doStuff(alright,ok));return 0;}

@@ -1,26 +1,42 @@
-CC = gcc                 # The C compiler you want to use
-CFLAGS = -Wall           # Compiler flags (optional, but -Wall shows all warnings)
-SRC_DIR = src            # Directory for source files (optional)
-OBJ_DIR = obj            # Directory for object files (optional)
-BIN_DIR = bin            # Directory for binaries (optional)
+CC = gcc                  # The C compiler you want to use
+CXX = g++                  # The C++ compiler you want to use
+CFLAGS = -Wall             # Compiler flags (optional, but -Wall shows all warnings)
+CXXFLAGS = -Wall           # C++ compiler flags (same as CFLAGS for consistency)
 
-# List of source files (this could be expanded as needed)
-SOURCES = $(wildcard *.c)  # All .c files in the current directory
-OBJECTS = $(SOURCES:.c=.o)  # Corresponding object files
+SRC_DIR = src              # Directory for source files (optional)
+OBJ_DIR = obj              # Directory for object files (optional)
+BIN_DIR = bin              # Directory for binaries (optional)
 
-# Output binary names (same as source filenames without .c)
-TARGETS = $(SOURCES:.c=)
+# List of source files
+C_SOURCES = $(wildcard *.c)     # All .c files in the current directory
+CPP_SOURCES = $(wildcard *.cpp) # All .cpp files in the current directory
+
+# Corresponding object files
+C_OBJECTS = $(C_SOURCES:.c=.o)
+CPP_OBJECTS = $(CPP_SOURCES:.cpp=.o)
+
+# All object files
+OBJECTS = $(C_OBJECTS) $(CPP_OBJECTS)
+
+# Output binary names (same as source filenames without .c or .cpp)
+C_TARGETS = $(C_SOURCES:.c=)
+CPP_TARGETS = $(CPP_SOURCES:.cpp=)
+TARGETS = $(C_TARGETS) $(CPP_TARGETS)
 
 # Default target to build all programs
 all: $(TARGETS)
 
-# Rule to compile any .c file into an object file
+# Rule to compile C files into object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Rule to link object files into an executable (name based on .c file)
+# Rule to compile C++ files into object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Rule to link object files into an executable (name based on .c or .cpp file)
 %: %.o
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Run all the programs (could also use a specific list of targets)
 run: $(TARGETS)

@@ -42,26 +42,42 @@ int isEmpty(Queue* q) {
     return q->front == NULL;
 }
 
+
+
+
+
+// ************AUFGABE 5********************************++
+
+
 // Function to add an element to the queue (enqueue)
 void enqueue(Queue* q, int value) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (!newNode) {
+    Node* newNode = (Node*)malloc(sizeof(Node)); // Allocate memory for the new node
+    if (!newNode) { // error handling
         printf("Memory allocation failed\n");
         return;
     }
+
+    // In dieser Zeile haben wir erfolgreich einen Zeiger (newNode) auf ein neues Element (Node) erstellt.
+    // Jetzt müssen wir den Wert des neuen Elements setzen und den Zeiger auf das nächste Element auf NULL setzen.
+    // Dann müssen wir das neue Element an das Ende der Schlange anhängen.
+    // Wenn die Schlange leer ist, wird das neue Element sowohl das erste als auch das letzte Element der Schlange sein.
+    // Andernfalls wird das neue Element das letzte Element der Schlange sein.
+    // Ein Element hat zwei Attribute: data und next. Das Attribut data enthält den Wert des Elements und das Attribut next enthält den Zeiger auf das nächste Element.
     
-    newNode->data = value;
-    newNode->next = NULL;
+    // Um den Wert eines Attributes eines Elements zu setzen, verwenden wir den Pfeiloperator (->).
+    // Hier setzen wir das data Attribut des neuen Elements auf den Wert, den wir übergeben haben. Implementiere den Rest wie beschrieben
     
-    if (q->back == NULL) {
-        q->front = q->back = newNode; // The first node
-        return;
-    }
+    newNode->data = value;  // Set the data
+
+    //...
     
     q->back->next = newNode;
     q->back = newNode;
     printf("Enqueued %d\n", value);
 }
+
+
+
 
 // Function to remove an element from the queue (dequeue)
 int dequeue(Queue* q) {
@@ -118,3 +134,18 @@ int main() {
 
     return 0;
 }
+
+//LÖSUNGEN
+
+/*
+
+
+newNode->next = NULL;   // This will be the last node so set next of it to NULL
+    
+    if (q->back == NULL) {
+        q->front = q->back = newNode; // The first node
+        return;
+    }
+
+
+*/
